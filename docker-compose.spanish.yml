@@ -1,9 +1,14 @@
 version: '3.8'
 
+# Docker Compose con configuración en español (ALTERNATIVO)
+# Usar este archivo si quieres locales en español
+
 services:
   postgres:
-    build: .
-    container_name: postgres_db
+    build: 
+      context: .
+      dockerfile: Dockerfile.spanish  # Usa el Dockerfile con locales en español
+    container_name: postgres_db_spanish
     restart: always
     environment:
       # Configuración de la base de datos
@@ -13,6 +18,11 @@ services:
       
       # Configuración adicional
       PGDATA: /var/lib/postgresql/data/pgdata
+      
+      # Variables de locale en español
+      LANG: es_ES.UTF-8
+      LANGUAGE: es_ES:es
+      LC_ALL: es_ES.UTF-8
     
     ports:
       # Puerto para acceso remoto (puerto_host:puerto_contenedor)
@@ -22,8 +32,9 @@ services:
       # Persistencia de datos
       - postgres_data:/var/lib/postgresql/data
       
-      # Archivos de configuración
-      - ./config:/etc/postgresql
+      # Archivos de configuración (usar la versión en español)
+      - ./config/postgresql.spanish.conf:/etc/postgresql/postgresql.conf
+      - ./config/pg_hba.conf:/etc/postgresql/pg_hba.conf
       
       # Scripts de inicialización
       - ./init-scripts:/docker-entrypoint-initdb.d
@@ -41,7 +52,7 @@ services:
   # Opcional: pgAdmin para administración web
   pgadmin:
     image: dpage/pgadmin4:latest
-    container_name: pgadmin
+    container_name: pgadmin_spanish
     restart: always
     environment:
       PGADMIN_DEFAULT_EMAIL: admin@admin.com

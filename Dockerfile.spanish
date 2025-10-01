@@ -1,0 +1,44 @@
+# Dockerfile para PostgreSQL con locales en español (ALTERNATIVO)
+# Este Dockerfile instala los locales en español para usar configuración regional
+
+FROM postgres:15
+
+# Instalar locales en español
+RUN apt-get update && \
+    apt-get install -y locales && \
+    sed -i '/es_ES.UTF-8/s/^# //g' /etc/locale.gen && \
+    sed -i '/es_MX.UTF-8/s/^# //g' /etc/locale.gen && \
+    locale-gen && \
+    apt-get clean && \
+    rm -rf /var/lib/apt/lists/*
+
+# Establecer variables de entorno por defecto
+ENV POSTGRES_DB=mi_base_datos
+ENV POSTGRES_USER=mi_usuario
+ENV POSTGRES_PASSWORD=mi_contraseña_segura
+ENV PGDATA=/var/lib/postgresql/data/pgdata
+
+# Variables de locale
+ENV LANG=es_ES.UTF-8
+ENV LANGUAGE=es_ES:es
+ENV LC_ALL=es_ES.UTF-8
+
+# Exponer el puerto de PostgreSQL
+EXPOSE 5432
+
+# Copiar archivos de configuración personalizados
+COPY ./config/postgresql.conf /etc/postgresql/postgresql.conf
+COPY ./config/pg_hba.conf /etc/postgresql/pg_hba.conf
+
+# Copiar scripts de inicialización
+COPY ./init-scripts/ /docker-entrypoint-initdb.d/
+
+# Crear directorio para datos y establecer permisos
+RUN mkdir -p /var/lib/postgresql/data/pgdata && \
+    chown -R postgres:postgres /var/lib/postgresql/data
+
+# Configurar PostgreSQL para usar nuestros archivos de configuración
+RUN echo "include '/etc/postgresql/postgresql.conf'" >> /usr/share/postgresql/postgresql.conf.sample
+
+# Comando por defecto
+CMD ["postgres", "-c", "config_file=/etc/postgresql/postgresql.conf", "-c", "hba_file=/etc/postgresql/pg_hba.conf"]

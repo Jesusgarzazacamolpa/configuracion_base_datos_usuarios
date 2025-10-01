@@ -18,9 +18,16 @@ base de datos/
 
 ## 🚀 Inicio Rápido
 
-### 1. Construir y ejecutar los contenedores:
+### Opción 1: Configuración estándar (Recomendada)
 ```powershell
+# Configuración con locales en inglés (más rápida y estable)
 docker-compose up -d --build
+```
+
+### Opción 2: Configuración en español
+```powershell
+# Configuración con locales en español (requiere instalación adicional)
+docker-compose -f docker-compose.spanish.yml up -d --build
 ```
 
 ### 2. Verificar que los contenedores están ejecutándose:
@@ -184,6 +191,21 @@ docker-compose exec -T postgres psql -U mi_usuario mi_base_datos < backup.sql
 5. **Configurar firewall del servidor**
 
 ## 🐛 Solución de Problemas
+
+### Error de locales (lc_messages, lc_monetary, etc.):
+Si obtienes errores como `invalid value for parameter "lc_messages": "es_ES.UTF-8"`:
+
+**Opción 1 (Recomendada):** Usar configuración en inglés
+```powershell
+# La configuración actual ya está corregida con locales en inglés
+docker-compose up -d --build
+```
+
+**Opción 2:** Usar configuración en español (requiere más tiempo de build)
+```powershell
+# Usar el docker-compose con locales en español
+docker-compose -f docker-compose.spanish.yml up -d --build
+```
 
 ### El contenedor no inicia:
 ```powershell
