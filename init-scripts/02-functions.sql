@@ -129,4 +129,8 @@ SELECT cambiar_estado_usuario(1, false);
 SELECT * FROM obtener_estadisticas_usuarios();
 */
 
-RAISE NOTICE 'Funciones y vistas adicionales creadas correctamente';
+-- Mensaje de confirmación (envuelto en bloque DO)
+DO $$
+BEGIN
+    RAISE NOTICE 'Funciones y vistas adicionales creadas correctamente';
+END $$;

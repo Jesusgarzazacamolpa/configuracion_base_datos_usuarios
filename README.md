@@ -43,14 +43,14 @@ docker-compose logs -f postgres
 ## 🔐 Credenciales de Acceso
 
 ### Usuario Principal (Administrador):
-- **Usuario:** `mi_usuario`
-- **Contraseña:** `mi_contraseña_segura`
-- **Base de datos:** `mi_base_datos`
+- **Usuario:** `jesusgarza`
+- **Contraseña:** `wars3yo10`
+- **Base de datos:** `usuarios`
 
 ### Usuario Remoto (Limitado):
 - **Usuario:** `usuario_remoto`
 - **Contraseña:** `contraseña_remota`
-- **Base de datos:** `mi_base_datos`
+- **Base de datos:** `usuarios`
 
 ### pgAdmin (Interfaz Web):
 - **URL:** http://localhost:8080

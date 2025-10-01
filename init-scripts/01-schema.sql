@@ -15,7 +15,7 @@ END
 $do$;
 
 -- Otorgar permisos al usuario remoto sobre la base de datos
-GRANT CONNECT ON DATABASE mi_base_datos TO usuario_remoto;
+GRANT CONNECT ON DATABASE usuarios TO usuario_remoto;
 GRANT USAGE ON SCHEMA public TO usuario_remoto;
 GRANT CREATE ON SCHEMA public TO usuario_remoto;
 
@@ -92,7 +92,7 @@ BEGIN
     RAISE NOTICE '============================================';
     RAISE NOTICE 'Base de datos inicializada correctamente';
     RAISE NOTICE '============================================';
-    RAISE NOTICE 'Usuario principal: mi_usuario';
+    RAISE NOTICE 'Usuario principal: jesusgarza';
     RAISE NOTICE 'Usuario remoto: usuario_remoto';
     RAISE NOTICE 'Total usuarios creados: %', stats.total_usuarios;
     RAISE NOTICE 'Usuarios activos: %', stats.usuarios_activos;
