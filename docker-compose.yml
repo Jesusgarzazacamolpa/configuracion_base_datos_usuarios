@@ -1,0 +1,66 @@
+version: '3.8'
+
+services:
+  postgres:
+    build: .
+    container_name: postgres_db
+    restart: always
+    environment:
+      # Configuración de la base de datos
+      POSTGRES_DB: mi_base_datos
+      POSTGRES_USER: mi_usuario
+      POSTGRES_PASSWORD: mi_contraseña_segura
+      
+      # Configuración adicional
+      PGDATA: /var/lib/postgresql/data/pgdata
+    
+    ports:
+      # Puerto para acceso remoto (puerto_host:puerto_contenedor)
+      - "5432:5432"
+    
+    volumes:
+      # Persistencia de datos
+      - postgres_data:/var/lib/postgresql/data
+      
+      # Archivos de configuración
+      - ./config:/etc/postgresql
+      
+      # Scripts de inicialización
+      - ./init-scripts:/docker-entrypoint-initdb.d
+    
+    networks:
+      - postgres_network
+    
+    healthcheck:
+      test: ["CMD-SHELL", "pg_ready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 60s
+
+  # Opcional: pgAdmin para administración web
+  pgadmin:
+    image: dpage/pgadmin4:latest
+    container_name: pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@admin.com
+      PGADMIN_DEFAULT_PASSWORD: admin123
+    ports:
+      - "8080:80"
+    volumes:
+      - pgadmin_data:/var/lib/pgadmin
+    networks:
+      - postgres_network
+    depends_on:
+      - postgres
+
+volumes:
+  postgres_data:
+    driver: local
+  pgadmin_data:
+    driver: local
+
+networks:
+  postgres_network:
+    driver: bridge
