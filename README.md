@@ -70,14 +70,14 @@ Contraseña: según el usuario elegido
 
 ### Cadena de conexión:
 ```
-postgresql://mi_usuario:mi_contraseña_segura@localhost:5432/mi_base_datos
+postgresql://jesusgarza:wars3yo10@localhost:5432/usuarios
 ```
 
 ### Desde línea de comandos:
 ```powershell
 # Instalar psql si no lo tienes
 # Conectar a la base de datos
-psql -h localhost -p 5432 -U mi_usuario -d mi_base_datos
+psql -h localhost -p 5432 -U jesusgarza -d usuarios
 ```
 
 ### Desde pgAdmin:
@@ -87,8 +87,8 @@ psql -h localhost -p 5432 -U mi_usuario -d mi_base_datos
    - **Name:** Mi PostgreSQL
    - **Host:** postgres (nombre del contenedor)
    - **Port:** 5432
-   - **Username:** mi_usuario
-   - **Password:** mi_contraseña_segura
+   - **Username:** jesusgarza
+   - **Password:** wars3yo10
 
 ## 🛠️ Personalización
 

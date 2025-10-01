@@ -58,9 +58,9 @@ try {
         Write-Host ""
         Write-Host "📊 Información de conexión:" -ForegroundColor Cyan
         Write-Host "  • PostgreSQL: localhost:5432" -ForegroundColor White
-        Write-Host "  • Usuario: mi_usuario" -ForegroundColor White
-        Write-Host "  • Contraseña: mi_contraseña_segura" -ForegroundColor White
-        Write-Host "  • Base de datos: mi_base_datos" -ForegroundColor White
+        Write-Host "  • Usuario: jesusgarza" -ForegroundColor White
+        Write-Host "  • Contraseña: wars3yo10" -ForegroundColor White
+        Write-Host "  • Base de datos: usuarios" -ForegroundColor White
         Write-Host "  • pgAdmin: http://localhost:8080" -ForegroundColor White
         Write-Host ""
         Write-Host "🔍 Para ver logs:" -ForegroundColor Yellow
