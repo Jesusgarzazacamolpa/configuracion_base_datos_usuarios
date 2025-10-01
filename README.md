@@ -40,6 +40,15 @@ docker-compose ps
 docker-compose logs -f postgres
 ```
 
+### 4. Probar la conexión:
+```powershell
+# Usar script automatizado de prueba
+.\test-connection.ps1
+
+# O probar manualmente con psql (si está instalado)
+psql -h localhost -p 5432 -U jesusgarza -d usuarios
+```
+
 ## 🔐 Credenciales de Acceso
 
 ### Usuario Principal (Administrador):
@@ -191,6 +200,14 @@ docker-compose exec -T postgres psql -U mi_usuario mi_base_datos < backup.sql
 5. **Configurar firewall del servidor**
 
 ## 🐛 Solución de Problemas
+
+### Error: "database does not exist"
+Si obtienes errores como `database "usuarios" does not exist`:
+```powershell
+# Este error está resuelto en la configuración actual
+# Los scripts ahora usan current_database() para referencias dinámicas
+docker-compose up -d --build
+```
 
 ### Error de locales (lc_messages, lc_monetary, etc.):
 Si obtienes errores como `invalid value for parameter "lc_messages": "es_ES.UTF-8"`:

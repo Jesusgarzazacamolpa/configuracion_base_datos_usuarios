@@ -14,8 +14,8 @@ BEGIN
 END
 $do$;
 
--- Otorgar permisos al usuario remoto sobre la base de datos
-GRANT CONNECT ON DATABASE usuarios TO usuario_remoto;
+-- Otorgar permisos al usuario remoto
+-- Los permisos sobre la base de datos se otorgan al final
 GRANT USAGE ON SCHEMA public TO usuario_remoto;
 GRANT CREATE ON SCHEMA public TO usuario_remoto;
 
@@ -43,6 +43,16 @@ GRANT SELECT, INSERT, UPDATE, DELETE ON usuarios TO usuario_remoto;
 GRANT SELECT, INSERT, UPDATE, DELETE ON roles_usuario TO usuario_remoto;
 GRANT USAGE, SELECT ON SEQUENCE usuarios_id_seq TO usuario_remoto;
 GRANT USAGE, SELECT ON SEQUENCE roles_usuario_id_seq TO usuario_remoto;
+
+-- Otorgar permisos de conexión a la base de datos actual
+DO $$
+BEGIN
+    EXECUTE format('GRANT CONNECT ON DATABASE %I TO usuario_remoto', current_database());
+    RAISE NOTICE 'Permisos de conexión otorgados a usuario_remoto en base de datos: %', current_database();
+EXCEPTION
+    WHEN OTHERS THEN
+        RAISE NOTICE 'No se pudieron otorgar permisos de conexión: %', SQLERRM;
+END $$;
 
 -- Insertar algunos datos de ejemplo (opcional)
 INSERT INTO usuarios (nombre, email, password) VALUES 
